@@ -1,0 +1,22 @@
+services:
+  ignite.medicationrequest.api:
+    image: ${DOCKER_REGISTRY-}ignitemedicationrequestapi
+    build:
+      context: .
+      dockerfile: Ignite.MedicationRequest.API/Dockerfile
+    ports:
+      - 8080:8081
+    depends_on:
+       - "db"
+  db:
+    image: postgres
+    container_name: postgres_db
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: IgniteExample
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

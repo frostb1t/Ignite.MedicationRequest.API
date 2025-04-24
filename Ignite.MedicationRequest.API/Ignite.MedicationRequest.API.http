@@ -1,0 +1,6 @@
+@Ignite.MedicationRequest.API_HostAddress = http://localhost:5082
+
+GET {{Ignite.MedicationRequest.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

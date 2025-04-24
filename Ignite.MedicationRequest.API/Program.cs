@@ -1,9 +1,14 @@
+using Ignite.MedicationRequest.API.Data;
 using Ignite.MedicationRequest.API.Extensions;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.AddSwagger(); // Adds API versioning to swagger documentation
+
+builder.Services.AddDbContextPool<ApplicationDbContext>(opt =>
+    opt.UseNpgsql(builder.Configuration.GetConnectionString("PostgresDb")));
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

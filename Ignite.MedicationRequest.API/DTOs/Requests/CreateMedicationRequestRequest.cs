@@ -1,5 +1,4 @@
 ﻿using Ignite.MedicationRequest.API.Models.Enums;
-using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 
 namespace Ignite.MedicationRequest.API.DTOs.Requests

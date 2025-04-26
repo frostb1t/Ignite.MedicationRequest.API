@@ -26,7 +26,7 @@ namespace Ignite.MedicationRequest.API.Services
             _patientRepository = patientRepository;
         }
 
-        public async Task<ErrorWrapper<Models.MedicationRequest>> CreateMedicationRequest(CreateMedicationRequestRequest request)
+        public async Task<ErrorWrapper<Models.MedicationRequest>> CreateMedicationRequestAsync(CreateMedicationRequestRequest request)
         {
             Guard.Against.Null(request);
             Guard.Against.NegativeOrZero(request.PatientId);

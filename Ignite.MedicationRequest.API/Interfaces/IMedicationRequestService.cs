@@ -6,6 +6,6 @@ namespace Ignite.MedicationRequest.API.Interfaces
 {
     public interface IMedicationRequestService
     {
-        public Task<ErrorWrapper<Models.MedicationRequest>> CreateMedicationRequest(CreateMedicationRequestRequest request);
+        public Task<ErrorWrapper<Models.MedicationRequest>> CreateMedicationRequestAsync(CreateMedicationRequestRequest request);
     }
 }

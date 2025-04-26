@@ -47,7 +47,7 @@ namespace Ignite.MedicationRequest.API.Controllers.v1
             var createMedicationRequest = _mapper.Map<Services.Requests.CreateMedicationRequestRequest>(request);
             createMedicationRequest.PatientId = patientId;
 
-            var response = await _medicationRequestService.CreateMedicationRequest(createMedicationRequest);
+            var response = await _medicationRequestService.CreateMedicationRequestAsync(createMedicationRequest);
 
             if (response.Status == Models.ErrorHandling.Status.BadRequest)
             {

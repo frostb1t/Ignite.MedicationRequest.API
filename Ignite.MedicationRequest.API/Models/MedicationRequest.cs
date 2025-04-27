@@ -5,6 +5,7 @@ namespace Ignite.MedicationRequest.API.Models
     public class MedicationRequest
     {
         public int Id { get; set; }
+        public int PatientId { get; set; }
         public Patient Patient { get; set; }
         public Clinician Clinician { get; set; }
         public Medication Medication { get; set; }

@@ -28,6 +28,9 @@ namespace Ignite.MedicationRequest.API.Mappings
                     dest => dest.Id,
                     opt => opt.Ignore()
                 );
+
+            // Core Models > API DTOs
+            CreateMap<Models.DTOs.GetMedicationRequestResultDto, DTOs.GetMedicationRequestResult>();
         }
     }
 }

@@ -19,7 +19,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(opt =>
     opt.UseNpgsql(builder.Configuration.GetConnectionString("PostgresDb")));
 
 builder.Services.AddScoped<IMedicationRequestService, MedicationRequestService>();
+
 builder.Services.AddTransient<IValidator<CreateMedicationRequestRequest>, CreateMedicationRequestValidator>();
+builder.Services.AddTransient<IValidator<GetMedicationRequestsRequest>, GetMedicationRequestValidator>();
 
 builder.Services.AddScoped<IMedicationRequestRepository, MedicationRequestRepository>();
 builder.Services.AddScoped<IMedicationRepository, MedicationRepository>();

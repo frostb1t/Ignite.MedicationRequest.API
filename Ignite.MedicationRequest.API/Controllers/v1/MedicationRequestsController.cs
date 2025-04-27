@@ -1,6 +1,8 @@
 using AutoMapper;
 using FluentValidation;
+using Ignite.MedicationRequest.API.DTOs;
 using Ignite.MedicationRequest.API.DTOs.Requests;
+using Ignite.MedicationRequest.API.DTOs.Responses;
 using Ignite.MedicationRequest.API.Extensions;
 using Ignite.MedicationRequest.API.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -23,9 +25,29 @@ namespace Ignite.MedicationRequest.API.Controllers.v1
         }
 
         [HttpGet]
-        public IActionResult Get()
+        [ProducesResponseType(typeof(GetMedicationRequestsResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(BadRequestObjectResult), StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult> Get([FromRoute] int patientId, [FromQuery]GetMedicationRequestsRequest request,
+            [FromServices] IValidator<GetMedicationRequestsRequest> validator)
         {
-            throw new NotImplementedException();
+            var validationResult = await validator.ValidateAsync(request);
+            if (!validationResult.IsValid)
+            {
+                ModelState.AddErrorsFromValidationResult(validationResult);
+                return BadRequest(ModelState);
+            }
+
+            var medicationRequests = await _medicationRequestService.GetMedicationRequestsAsync(
+                patientId,
+                request.PrescribedStartDate,
+                request.PrescribedEndDate,
+                request.Status
+            );
+
+            return Ok(new GetMedicationRequestsResponse
+            {
+                Results = _mapper.Map<IEnumerable<GetMedicationRequestResult>>(medicationRequests)
+            });
         }
 
         [HttpPost]

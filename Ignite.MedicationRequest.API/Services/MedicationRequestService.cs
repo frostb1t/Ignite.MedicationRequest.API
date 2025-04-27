@@ -78,5 +78,15 @@ namespace Ignite.MedicationRequest.API.Services
                 Data = medicationRequest
             };
         }
+
+        public async Task<IEnumerable<Models.DTOs.GetMedicationRequestResultDto>> GetMedicationRequestsAsync(int patientId, DateTime? prescribedStartDate, DateTime? prescribedEndDate, Models.Enums.Status? status = null)
+        {
+            Guard.Against.NegativeOrZero(patientId);
+            //etc
+
+            var requests = await _medicationRequestRepository.GetMedicationRequestAsync(patientId, prescribedStartDate, prescribedEndDate, status);
+
+            return requests;
+        }
     }
 }

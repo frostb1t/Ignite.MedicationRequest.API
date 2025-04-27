@@ -45,7 +45,8 @@ namespace Ignite.MedicationRequest.API.Validators
 
 
             RuleFor(x => x.Status)
-                .NotNull();
+                .NotNull()
+                .IsInEnum();
         }
     }
 }

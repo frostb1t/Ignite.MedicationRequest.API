@@ -1,3 +1,4 @@
+
 # Ignite Medication Request API
 
 This is a simple API as a proof of concept for Ignite. It is built with .NET 8 and EF 9
@@ -33,11 +34,11 @@ Some assumptions have been made:
 There's a lot of potential improvements that could be made to the solution, but given the time constraints I chose not to implement them:
 
 Some examples:
-	- Handling Enum values in a better way (e.g. using JsonStringEnumConverter to make the enum values for Medication > Form a bit easier to understand)
-	- Generic error handling middleware
-	- Health checks
-	- Cancellation tokens
-	- Logging
-	- Perhaps creating a reusable object for coded values (as coded values are often used across FHIR entities)
-	- I could consider creating a generic repository interface that could be shared across repos
-	- Improved validation
+- Handling Enum values in a better way (e.g. using JsonStringEnumConverter to make the enum values for Medication > Form a bit easier to understand)
+- Generic error handling middleware
+- Health checks
+- Cancellation tokens
+- Logging
+- Perhaps creating a reusable object for coded values (as coded values are often used across FHIR entities)
+- I could consider creating a generic repository interface that could be shared across repos
+- Improved validation

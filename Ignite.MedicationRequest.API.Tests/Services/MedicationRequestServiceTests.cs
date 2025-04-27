@@ -305,5 +305,72 @@ namespace Ignite.MedicationRequest.API.Tests.Services
             response.Data.Should().BeNull();
         }
         #endregion
+
+        #region GetMedicationRequests
+
+        [Fact]
+        public async void GetMedicationRequests_ShouldReturnCorrectResponse_WhenRequestIsSuccessful()
+        {
+            // Arrange
+
+            // Act
+            var response = await _sut.GetMedicationRequestsAsync(
+                    1,
+                    It.IsAny<DateTime?>(),
+                    It.IsAny<DateTime?>(),
+                    It.IsAny<Models.Enums.Status>()
+                );
+
+            var mockResults = new Mock<IEnumerable<Models.DTOs.GetMedicationRequestResultDto>>().Object;
+            _medicationRequestRepository.Setup(r => r.GetMedicationRequestAsync(
+                    It.IsAny<int>(),
+                    It.IsAny<DateTime?>(),
+                    It.IsAny<DateTime?>(),
+                    It.IsAny<Models.Enums.Status>()
+                ))
+                .Returns(Task.FromResult(mockResults)!);
+
+            //Assert
+            response.Should().NotBeNull();
+        }
+
+        [Fact]
+        public async void GetMedicationRequests_ShouldThrowArgumentException_WhenPatientIdIsZero()
+        {
+            // Arrange
+            int patientId = 0;
+
+            // Act
+            var response = async () => await _sut.GetMedicationRequestsAsync(
+                   patientId,
+                   It.IsAny<DateTime?>(),
+                   It.IsAny<DateTime?>(),
+                   It.IsAny<Models.Enums.Status>()
+               );
+
+            //Assert
+            await response.Should().ThrowAsync<ArgumentException>();
+        }
+
+        [Fact]
+        public async void GetMedicationRequests_ShouldThrowArgumentException_WhenPatientIdIsNegative()
+        {
+            // Arrange
+            int patientId = -1;
+
+            // Act
+            var response = async () => await _sut.GetMedicationRequestsAsync(
+                   patientId,
+                   It.IsAny<DateTime?>(),
+                   It.IsAny<DateTime?>(),
+                   It.IsAny<Models.Enums.Status>()
+               );
+
+            //Assert
+            await response.Should().ThrowAsync<ArgumentException>();
+        }
+
+        #endregion
+
     }
 }

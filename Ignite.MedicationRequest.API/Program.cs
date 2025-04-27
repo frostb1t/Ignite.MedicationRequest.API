@@ -21,7 +21,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(opt =>
 builder.Services.AddScoped<IMedicationRequestService, MedicationRequestService>();
 
 builder.Services.AddTransient<IValidator<CreateMedicationRequestRequest>, CreateMedicationRequestValidator>();
-builder.Services.AddTransient<IValidator<GetMedicationRequestsRequest>, GetMedicationRequestValidator>();
+builder.Services.AddTransient<IValidator<GetMedicationRequestsRequest>, GetMedicationRequestsValidator>();
 
 builder.Services.AddScoped<IMedicationRequestRepository, MedicationRequestRepository>();
 builder.Services.AddScoped<IMedicationRepository, MedicationRepository>();

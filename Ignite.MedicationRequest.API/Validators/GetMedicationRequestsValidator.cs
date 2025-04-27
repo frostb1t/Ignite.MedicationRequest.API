@@ -3,9 +3,9 @@ using Ignite.MedicationRequest.API.DTOs.Requests;
 
 namespace Ignite.MedicationRequest.API.Validators
 {
-    public class GetMedicationRequestValidator : AbstractValidator<GetMedicationRequestsRequest>
+    public class GetMedicationRequestsValidator : AbstractValidator<GetMedicationRequestsRequest>
     {
-        public GetMedicationRequestValidator()
+        public GetMedicationRequestsValidator()
         {
             RuleFor(x => x.Status).IsInEnum();
 

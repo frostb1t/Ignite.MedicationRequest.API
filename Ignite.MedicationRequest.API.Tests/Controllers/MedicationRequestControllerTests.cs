@@ -25,6 +25,8 @@ namespace Ignite.MedicationRequest.API.Tests.Controllers
             _sut = new MedicationRequestsController(_medicationRequestServiceMock.Object, mapper);
         }
 
+
+        #region CreateMedicationRequest
         [Fact]
         public async Task CreateMedicationRequest_ShouldReturn204NoContent_WhenRequestIsSuccessful()
         {
@@ -120,5 +122,77 @@ namespace Ignite.MedicationRequest.API.Tests.Controllers
             badRequestObjectResult.StatusCode.Should().Be(StatusCodes.Status400BadRequest);
             badRequestObjectResult.Value.Should().Be(expectedErrorMessage);
         }
+
+        #endregion
+
+        #region GetMedicationRequests
+        [Fact]
+        public async Task GetMedicationRequests_ShouldReturn200Ok_WhenRequestIsSuccessful()
+        {
+            // Arrange
+            var request = new GetMedicationRequestsRequest
+            {
+                PrescribedStartDate = DateTime.UtcNow.AddDays(-7),
+                PrescribedEndDate = DateTime.UtcNow.AddDays(7),
+                Status = Models.Enums.Status.Active
+            };
+
+            var validator = new GetMedicationRequestsValidator();
+
+            IEnumerable<Models.DTOs.GetMedicationRequestResultDto> mockServiceResponse = new[]
+            {
+                new Models.DTOs.GetMedicationRequestResultDto
+                {
+                    ClinicianFirstName = "Dr",
+                    ClinicianLastName = "Test",
+                    MedicationCodeName = "Example"
+                }
+            };
+
+            _medicationRequestServiceMock.Setup(svc => svc.GetMedicationRequestsAsync(
+                        It.IsAny<int>(),
+                        It.IsAny<DateTime?>(),
+                        It.IsAny<DateTime?>(),
+                        It.IsAny<Models.Enums.Status>()
+                    ))
+                .Returns(Task.FromResult(mockServiceResponse));
+
+            // Act
+            var response = await _sut.GetMedicationRequests(1, request, validator);
+
+            // Assert
+            var okObjectResult = response as OkObjectResult;
+            okObjectResult.Should().NotBeNull();
+            okObjectResult.StatusCode.Should().Be(StatusCodes.Status200OK);
+        }
+
+        [Fact]
+        public async Task GetMedicationRequests_ShouldReturnBadRequest_WhenRequestIsInvalid()
+        {
+            // Arrange
+            var request = new GetMedicationRequestsRequest
+            {
+                PrescribedStartDate = DateTime.UtcNow.AddDays(-7),
+                PrescribedEndDate = DateTime.UtcNow.AddDays(7),
+                Status = Models.Enums.Status.Active
+            };
+
+            var validatorMock = new Mock<IValidator<GetMedicationRequestsRequest>>();
+            var invalidValidationResult = new Mock<ValidationResult>();
+            invalidValidationResult.Setup(r => r.IsValid).Returns(false);
+
+            validatorMock.Setup(validator => validator.ValidateAsync(It.IsAny<GetMedicationRequestsRequest>(), CancellationToken.None))
+                .Returns(Task.FromResult(invalidValidationResult.Object));
+
+            // Act
+            var response = await _sut.GetMedicationRequests(1, request, validatorMock.Object);
+
+            // Assert
+            var badRequestObjectResult = response as BadRequestObjectResult;
+            badRequestObjectResult.Should().NotBeNull();
+            badRequestObjectResult.StatusCode.Should().Be(StatusCodes.Status400BadRequest);
+        }
+
+        #endregion
     }
 }

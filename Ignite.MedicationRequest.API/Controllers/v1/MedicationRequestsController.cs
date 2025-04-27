@@ -27,7 +27,7 @@ namespace Ignite.MedicationRequest.API.Controllers.v1
         [HttpGet]
         [ProducesResponseType(typeof(GetMedicationRequestsResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(BadRequestObjectResult), StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> Get([FromRoute] int patientId, [FromQuery]GetMedicationRequestsRequest request,
+        public async Task<ActionResult> GetMedicationRequests([FromRoute] int patientId, [FromQuery]GetMedicationRequestsRequest request,
             [FromServices] IValidator<GetMedicationRequestsRequest> validator)
         {
             var validationResult = await validator.ValidateAsync(request);

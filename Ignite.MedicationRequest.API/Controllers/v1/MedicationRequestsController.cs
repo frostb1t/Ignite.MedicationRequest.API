@@ -9,18 +9,15 @@ namespace Ignite.MedicationRequest.API.Controllers.v1
 {
     [ApiController]
     [Asp.Versioning.ApiVersion("1")]
-    [Route("api/v{apiVersion:apiVersion}/patient/{patientId:int}/[controller]")]
+    [Route("api/v{apiVersion:apiVersion}/patients/{patientId:int}/[controller]")]
     public class MedicationRequestsController : ControllerBase
     {
-        private readonly ILogger<MedicationRequestsController> _logger;
         private readonly IMedicationRequestService _medicationRequestService;
         private readonly IMapper _mapper;
 
-        public MedicationRequestsController(ILogger<MedicationRequestsController> logger,
-            IMedicationRequestService medicationRequestService,
+        public MedicationRequestsController(IMedicationRequestService medicationRequestService,
             IMapper mapper)
         {
-            _logger = logger;
             _medicationRequestService = medicationRequestService;
             _mapper = mapper;
         }
@@ -33,7 +30,7 @@ namespace Ignite.MedicationRequest.API.Controllers.v1
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(BadRequestObjectResult), StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> CreateMedicationRequest([FromRoute] int patientId, [FromBody] CreateMedicationRequestRequest request,
             [FromServices] IValidator<CreateMedicationRequestRequest> validator)
         {

@@ -35,6 +35,19 @@ namespace Ignite.MedicationRequest.API.Data
                         context.SaveChanges();
                     }
 
+                    var exampleClinician2 = context.Set<Clinician>().FirstOrDefault(c => c.Id == 2);
+                    if (exampleClinician2 == null)
+                    {
+                        context.Set<Clinician>().Add(new Clinician
+                        {
+                            Id = 2,
+                            FirstName = "Another",
+                            LastName = "Clinican",
+                            RegistrationId = Guid.NewGuid()
+                        });
+                        context.SaveChanges();
+                    }
+
                     var examplePatient = context.Set<Patient>().FirstOrDefault(c => c.Id == 1);
                     if (examplePatient == null)
                     {
@@ -45,6 +58,20 @@ namespace Ignite.MedicationRequest.API.Data
                             LastName = "Wright",
                             DateOfBirth = DateTime.UtcNow.AddYears(-20),
                             Sex = Models.Enums.Sex.Male
+                        });
+                        context.SaveChanges();
+                    }
+
+                    var examplePatient2 = context.Set<Patient>().FirstOrDefault(c => c.Id == 2);
+                    if (examplePatient2 == null)
+                    {
+                        context.Set<Patient>().Add(new Patient
+                        {
+                            Id = 2,
+                            FirstName = "Second",
+                            LastName = "Patient",
+                            DateOfBirth = DateTime.UtcNow.AddYears(-40),
+                            Sex = Models.Enums.Sex.Female
                         });
                         context.SaveChanges();
                     }
@@ -61,6 +88,22 @@ namespace Ignite.MedicationRequest.API.Data
                             StrengthValue = 5,
                             StrengthUnit = "g/ml",
                             Form = Models.Enums.Form.Powder
+                        });
+                        context.SaveChanges();
+                    }
+
+                    var exampleMedication2 = context.Set<Medication>().FirstOrDefault(c => c.Id == 2);
+                    if (exampleMedication2 == null)
+                    {
+                        context.Set<Medication>().Add(new Medication
+                        {
+                            Id = 2,
+                            Code = "000111",
+                            CodeName = "Example",
+                            CodeSystem = "SNOMED",
+                            StrengthValue = 1,
+                            StrengthUnit = "g/ml",
+                            Form = Models.Enums.Form.Syrup
                         });
                         context.SaveChanges();
                     }

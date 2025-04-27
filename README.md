@@ -15,7 +15,7 @@ To run the app, ensure that Docker Desktop is running, and that the docker-compo
 If the container is running, tests can be executed by the Visual Studio runner.
 
 ## About the implementation
-When creating a medication request, it must refer to a correct Medication, Patient, and Clinician. I have seeded the DB with an initial Clinician, Patient, and Medication. These each have an Id of 1.
+When creating a medication request, it must refer to a correct Medication, Patient, and Clinician. I have seeded the DB with two initial Clinicians, Patients, and Medications. These each have an Id of either 1 or 2.
 
 ## Notes
 
